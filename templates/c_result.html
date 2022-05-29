@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% block css %}
+
+.container
+{
+    
+    color: Crimson ;
+}
+.dark-mode .container
+{
+    color:#fff;
+}
+{% endblock css %}
+{% block body %}
+<br><br>
+<div class="container mb-5 pt-5" text>
+    <h1 class="text-center"><b>Breast Cancer Prediction  🎀 </b></h1>
+    <br>
+    <br>
+    <br>
+    {% if prediction==1 %}
+        
+        <h1><span style="font-weight: bold;"></span> <span style="color: rgb(0, 0, 0);">Given Data  is Found to be Positive for <span style="color: red;font-weight: bold;">BREAST CANCER</span></span></h5>
+    {% elif prediction==0 %}
+        
+        <h1><span style="font-weight: bold;"></span> <span style="color: rgb(0, 0, 0);">Given Data  is Found to be Negative for <span style="color: green;font-weight: bold;">BREAST CANCER</span></span></h1>
+    {% else %}
+        <h1 style="color: red;">Somthing Wrong Please Try Again... :(</h1>
+    {% endif %}
+</div>
+{% endblock %}

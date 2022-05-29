@@ -1,0 +1,97 @@
+{% extends "layout.html" %}
+{% block css %}
+
+.container
+{
+    
+    color: DarkSlateBlue   ;
+}
+.dark-mode .container
+{
+    color:#fff;
+}
+{% endblock css %}
+{% block body %}
+<div class="container px-5 col-lg-11 col-sm-10 text-center" style="height:50vh">
+    <br>
+    <br>
+    <h1 class="text-center"><b>Fetal Health Prediction 👩🏽‍🍼</b></h1> 
+    <br>
+    <br>
+    <!-- Taking Input Data Area -->
+    <div id="entry_form" style="display: none;">
+        <form action="/fetal_health" method="POST">
+            <div class="row">
+                <div class="col-lg-4 col-sm-10 px-2 mx-auto">
+                <input type="text" class="form-input" id="baseline_value" name="baseline_value" placeholder="Baseline Value " required><br>
+                <input type="text" class="form-input" id="accelerations" name="accelerations" placeholder="Accelerations" required><br>
+                <input type="text" class="form-input" id="fetal_movement " name="fetal_movement" placeholder="Fetal Movement" required><br>
+                <input type="text" class="form-input" id="uterine_contractions" name="uterine_contractions" placeholder="Uterine Contractions" required><br>
+                <input type="text" class="form-input" id="light_decelerations" name="light_decelerations" placeholder="Light Decelerations" required><br>
+                <input type="text" class="form-input" id="severe_decelerations" name="severe_decelerations" placeholder="Severe Decelerations " required><br>
+                <input type="text" class="form-input" id="prolongued_decelerations" name="prolongued_decelerations" placeholder=" Prolongued Decelerations" required><br>
+            </div> 
+    <div class="col-lg-4 col-sm-10 px-2 mx-auto">
+        <input type="text" class="form-input" id="abnormal_short_term_variability" name="abnormal_short_term_variability" placeholder="Abnormal Short Term Variability" required><br>
+        <input type="text" class="form-input" id="mean_value_of_short_term_variability" name="mean_value_of_short_term_variability" placeholder="Mean Value of Short Term Variability" required><br>
+        <input type="text" class="form-input" id="percentage_of_time_with_abnormal_long_term_variability" name="percentage_of_time_with_abnormal_long_term_variability" placeholder="Percentage of Time with Abnormal Long Term Variability" required><br>
+        <input type="text" class="form-input" id="mean_value_of_long_term_variability" name="mean_value_of_long_term_variability" placeholder="Mean Value of Long Term Variability" required><br>
+        <input type="text" class="form-input" id="histogram_width" name="histogram_width" placeholder="Histogram Width" required><br>    
+        <input type="text" class="form-input" id="histogram_min" name="histogram_min" placeholder="Histogram Min" required><br>
+        <input type="text" class="form-input" id="histogram_max" name="histogram_max" placeholder="Histogram Max " required><br>
+    </div> 
+    <div class="col-lg-4 col-sm-10 px-2 mx-auto">
+        <input type="text" class="form-input" id="histogram_number_of_peaks" name="histogram_number_of_peaks" placeholder="Histogram Number of Peaks " required><br>
+        <input type="text" class="form-input" id="histogram_number_of_zeroes" name="histogram_number_of_zeroes" placeholder="Histogram Mode " required><br>
+        <input type="text" class="form-input" id="histogram_mode" name="histogram_mode" placeholder="Histogram Mode" required><br>
+        <input type="text" class="form-input" id="histogram_mean" name="histogram_mean" placeholder="Histogram Mean " required><br>
+        <input type="text" class="form-input" id="histogram_median" name="histogram_median" placeholder="Histogram Median " required><br>
+        <input type="text" class="form-input" id="histogram_variance" name="histogram_variance" placeholder="Histogram Variance " required><br>
+        <input type="text" class="form-input" id="histogram_tendency" name="histogram_tendency" placeholder="Histogram Tendency " required><br>
+    </div>
+    </div>
+    <br>
+        <div class="text-center mb-3 pb-5">
+            <input type="submit" class="btn btn-success btn-lg" value="Predict">
+        </div>
+        
+    </form>
+
+</div> 
+
+<!-- Displaying Output Area -->
+<div class="center mt-4 pt-4" id="show_result" style="display: none;">
+    {%  if result == 1 %}
+        <h1><span style="font-weight: bold;"></span> <span style="color: rgb(0, 0, 0);">The Condition of the Fetal is  <span style="color: green;font-weight: bold;">Normal</span></span></h1>
+        
+    {% elif result == 2 %}
+        <h1><span style="font-weight: bold;"></span> <span style="color: rgb(0, 0, 0);">The Condition of the Fetal is  <span style="color: rgb(245, 112, 10);font-weight: bold;">Suspected</span></span></h1>
+        
+    {% elif result == 3 %}
+        <h1><span style="font-weight: bold;"></span> <span style="color: rgb(0, 0, 0);">The Condition of the Fetal is <span style="color: red;font-weight: bold;">Pathological</span></span></h1>
+        
+    {% else %}
+        <h3 style="color: red;">Somthing Wrong Please Try Again... :(</h3>
+    {% endif %}
+
+    <div class="text-center p-4 m-4">
+        <button type="button" class="btn btn-success btn-lg" onclick="window.location.href='/fetal_health'">Back</button>
+    </div>
+
+</div>
+</div>
+<script>
+    let entry_form = document.getElementById('entry_form');
+    let show_result = document.getElementById('show_result');
+    let output = '{{ result }}';
+    // console.log(output);
+    if (output === 'None') {
+        entry_form.style.display = "block";
+        show_result.style.display = "none";
+    } else {
+        entry_form.style.display = "none";
+        show_result.style.display = "block";
+    }
+</script>
+
+{% endblock body %}
